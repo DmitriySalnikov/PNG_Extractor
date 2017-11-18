@@ -9,18 +9,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PNG_Reaper
+namespace PNG_Extractor
 {
-	public partial class PNG_Reaper : Form
+	public partial class PNG_Extractor : Form
 	{
-		int ArraySize = 50000;
-		int MAX_ARRAY_SIZE = 100000000;
+		int ArraySize = 500000;
+		int MAX_ARRAY_SIZE = 999999999;
 		int MIN_ARRAY_SIZE = 100;
 
 		byte[] PNG_Start = new byte[] { 0x89, 0x50, 0x4e, 0x47 };
 		byte[] PNG_End = new byte[] { 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60, 0x82 };
 
-		public PNG_Reaper()
+		public PNG_Extractor()
 		{
 			InitializeComponent();
 		}
@@ -90,7 +90,7 @@ namespace PNG_Reaper
 				long to_end = stream.Length - stream.Position;
 				long old_pos = stream.Position;
 				int size = to_end < ArraySize ? (int)to_end : (ArraySize > stream.Length) ? (int)stream.Length : ArraySize;
-
+				
 				byte[] arr = reader.ReadBytes(size);
 				int offset_start = 0;
 				int offset_end = 0;
@@ -178,19 +178,20 @@ namespace PNG_Reaper
 
 		private void PNG_Reaper_Load(object sender, EventArgs e)
 		{
-			tb_chunck.Text = ArraySize.ToString();
+			nud_chunk.Value = ArraySize;
 		}
 
 		private void parce_chunk_value()
 		{
-			Int32.TryParse(tb_chunck.Text, out int res);
-			ArraySize = res;
+			int res = (int)nud_chunk.Value;
+
 			if (res > MAX_ARRAY_SIZE)
 				res = MAX_ARRAY_SIZE;
 			if (res < MIN_ARRAY_SIZE)
 				res = MIN_ARRAY_SIZE;
+			ArraySize = res;
 
-			tb_chunck.Text = res.ToString();
+			nud_chunk.Value = res;
 		}
 	}
 }
