@@ -17,7 +17,7 @@ namespace PNG_Extractor
 		int MAX_ARRAY_SIZE = 999999999;
 		int MIN_ARRAY_SIZE = 100;
 
-		byte[] PNG_Start = new byte[] { 0x89, 0x50, 0x4e, 0x47 };
+		byte[] PNG_Start = new byte[] { 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a };
 		byte[] PNG_End = new byte[] { 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60, 0x82 };
 
 		public PNG_Extractor()
@@ -90,7 +90,7 @@ namespace PNG_Extractor
 				long to_end = stream.Length - stream.Position;
 				long old_pos = stream.Position;
 				int size = to_end < ArraySize ? (int)to_end : (ArraySize > stream.Length) ? (int)stream.Length : ArraySize;
-				
+
 				byte[] arr = reader.ReadBytes(size);
 				int offset_start = 0;
 				int offset_end = 0;
