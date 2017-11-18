@@ -1,6 +1,8 @@
 # png_exporter
 Extracts png files from uncompressed archives.
 
+[Download latest version](https://github.com/DmitriySalnikov/png_exporter/releases/latest)
+
 # How-to
 1. Open program
 2. Select a binary file, which in your opinion contains the image in png format
