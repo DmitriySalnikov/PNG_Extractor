@@ -1,4 +1,4 @@
-# png_exporter
+# PNG Extractor
 Extracts png files from uncompressed archives.
 
 # How-to
