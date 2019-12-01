@@ -34,16 +34,14 @@
 			this.l_file = new System.Windows.Forms.Label();
 			this.b_select = new System.Windows.Forms.Button();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.label1 = new System.Windows.Forms.Label();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.nud_chunk = new System.Windows.Forms.NumericUpDown();
-			((System.ComponentModel.ISupportInitialize)(this.nud_chunk)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// b_reap
 			// 
 			resources.ApplyResources(this.b_reap, "b_reap");
 			this.b_reap.Name = "b_reap";
+			this.toolTip1.SetToolTip(this.b_reap, resources.GetString("b_reap.ToolTip"));
 			this.b_reap.UseVisualStyleBackColor = true;
 			this.b_reap.Click += new System.EventHandler(this.b_reap_Click);
 			// 
@@ -51,61 +49,41 @@
 			// 
 			resources.ApplyResources(this.l_file, "l_file");
 			this.l_file.Name = "l_file";
+			this.toolTip1.SetToolTip(this.l_file, resources.GetString("l_file.ToolTip"));
 			// 
 			// b_select
 			// 
 			resources.ApplyResources(this.b_select, "b_select");
 			this.b_select.Name = "b_select";
+			this.toolTip1.SetToolTip(this.b_select, resources.GetString("b_select.ToolTip"));
 			this.b_select.UseVisualStyleBackColor = true;
 			this.b_select.Click += new System.EventHandler(this.b_select_Click);
 			// 
 			// openFileDialog1
 			// 
 			this.openFileDialog1.FileName = "somefile";
-			// 
-			// label1
-			// 
-			resources.ApplyResources(this.label1, "label1");
-			this.label1.Name = "label1";
+			resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
 			// 
 			// toolTip1
 			// 
 			this.toolTip1.ToolTipTitle = "Размер блока считываемых данных. Может повлиять на производительность.";
 			// 
-			// nud_chunk
-			// 
-			resources.ApplyResources(this.nud_chunk, "nud_chunk");
-			this.nud_chunk.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
-			this.nud_chunk.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-			this.nud_chunk.Name = "nud_chunk";
-			this.nud_chunk.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-			// 
 			// PNG_Extractor
 			// 
 			resources.ApplyResources(this, "$this");
+			this.AllowDrop = true;
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.nud_chunk);
-			this.Controls.Add(this.label1);
 			this.Controls.Add(this.b_select);
 			this.Controls.Add(this.l_file);
 			this.Controls.Add(this.b_reap);
+			this.MaximizeBox = false;
 			this.Name = "PNG_Extractor";
+			this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
 			this.Load += new System.EventHandler(this.PNG_Reaper_Load);
-			((System.ComponentModel.ISupportInitialize)(this.nud_chunk)).EndInit();
+			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.PNG_Extractor_DragDrop);
+			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.PNG_Extractor_DragEnter);
+			this.DragLeave += new System.EventHandler(this.PNG_Extractor_DragLeave);
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -115,9 +93,7 @@
 		private System.Windows.Forms.Label l_file;
 		private System.Windows.Forms.Button b_select;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ToolTip toolTip1;
-		private System.Windows.Forms.NumericUpDown nud_chunk;
 	}
 }
 
