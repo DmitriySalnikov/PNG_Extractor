@@ -47,7 +47,7 @@ namespace PNG_Extractor
 			string folder = path.Replace(file_name, "") + "Images_from_" + file_name + "\\";
 
 
-			var extractor = new PNGExtractor();
+			var extractor = new PNGExtractor(bg_worker);
 			ExtractorResult res = new ExtractorResult() { ExtractorName = extractor.Name, IsSuccess = false, ExportedCount = -1, FoundCount = -1 };
 
 			DoWorkEventHandler dwEh = ((se, ev) =>
@@ -55,7 +55,7 @@ namespace PNG_Extractor
 				try
 				{
 					BinaryReader reader = new BinaryReader(File.OpenRead(path));
-					res = extractor.Extract(reader, folder, bg_worker);
+					res = extractor.Extract(reader, folder);
 					reader.Close();
 				}
 				catch (Exception ex)
@@ -78,9 +78,9 @@ namespace PNG_Extractor
 			}
 			else
 			{
-				if (res.ExportedCount == -1 && res.FoundCount == -1)
+				if (res.IsCancelledOrError)
 				{
-					MessageBox.Show($"{res.ExtractorName}: \nError or Cancelled!", "Done!");
+					MessageBox.Show($"{res.ExtractorName}: \nCancelled or Error occurred!", "Error!");
 				}
 				else
 				{

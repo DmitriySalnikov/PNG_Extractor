@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackgroundWorkerCustom.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ExtractProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,6 +59,7 @@
       <DependentUpon>ExtractProgressForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Extrators\Extractor.cs" />
+    <Compile Include="Extrators\JPGExtractor.cs" />
     <Compile Include="Extrators\PNGExtractor.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

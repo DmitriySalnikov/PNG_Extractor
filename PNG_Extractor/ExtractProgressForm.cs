@@ -14,17 +14,21 @@ namespace PNG_Extractor
 {
 	public partial class ExtractProgressForm : Form
 	{
-		BackgroundWorker bg_worker = null;
+		BackgroundWorkerCustom bg_worker = null;
 		bool is_closing_by_event = false;
 
 		public ExtractProgressForm()
 		{
 			InitializeComponent();
+			is_closing_by_event = false;
+			btn_stop_scan.Enabled = true;
 		}
 
-		public ExtractProgressForm(BackgroundWorker bgw)
+		public ExtractProgressForm(BackgroundWorkerCustom bgw)
 		{
 			InitializeComponent();
+			is_closing_by_event = false;
+			btn_stop_scan.Enabled = true;
 
 			bg_worker = bgw;
 
@@ -34,11 +38,14 @@ namespace PNG_Extractor
 
 		private void Bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
+			btn_stop_scan.Enabled = true;
+			is_closing_by_event = true;
 			Close();
 		}
 
 		private void Bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
+			btn_stop_scan.Enabled = !bg_worker.IsStopPartOfTask;
 			pb_progress.Value = e.ProgressPercentage;
 
 			if (e.UserState is BGWorkerInitProgress bgInitData)
@@ -57,6 +64,12 @@ namespace PNG_Extractor
 		private void btn_cancel_Click(object sender, EventArgs e)
 		{
 			bg_worker.CancelAsync();
+		}
+
+		private void btn_stop_scan_Click(object sender, EventArgs e)
+		{
+			bg_worker.StopPartOfWork();
+			btn_stop_scan.Enabled = false;
 		}
 	}
 }

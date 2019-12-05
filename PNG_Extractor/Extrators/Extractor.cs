@@ -18,10 +18,18 @@ namespace PNG_Extractor.Extrators
 		public string Text;
 	}
 
+	public enum SaveExtractedFileError
+	{
+		OK,
+		CantOpenToWrite,
+		ZeroSize,
+	}
+
 	public struct ExtractorResult
 	{
 		public string ExtractorName;
 		public bool IsSuccess;
+		public bool IsCancelledOrError;
 		public int ExportedCount;
 		public int FoundCount;
 	}
@@ -32,7 +40,7 @@ namespace PNG_Extractor.Extrators
 		public long Size;
 		public BinaryReader Stream;
 
-		public bool Save(string name)
+		public virtual SaveExtractedFileError Save(string name)
 		{
 			Stream.BaseStream.Seek(StartPos, SeekOrigin.Begin);
 			long size = Size;
@@ -44,11 +52,18 @@ namespace PNG_Extractor.Extrators
 			BinaryWriter writer;
 			if (size > 0)
 			{
-				writer = new BinaryWriter(File.OpenWrite(name));
+				try
+				{
+					writer = new BinaryWriter(File.OpenWrite(name));
+				}
+				catch(Exception e)
+				{
+					return SaveExtractedFileError.CantOpenToWrite;
+				}
 			}
 			else
 			{
-				return false;
+				return SaveExtractedFileError.ZeroSize;
 			}
 
 			while (size > 0)
@@ -67,7 +82,7 @@ namespace PNG_Extractor.Extrators
 
 			writer?.Close();
 
-			return true;
+			return SaveExtractedFileError.OK;
 		}
 	}
 
@@ -76,8 +91,47 @@ namespace PNG_Extractor.Extrators
 		protected List<ExtractorFile> Files;
 
 		public virtual string Name { get; }
+		private BackgroundWorkerCustom bg_worker = null;
+		public BackgroundWorkerCustom BGWorker
+		{
+			get => bg_worker;
+			set
+			{
+				bg_worker = value;
+			}
+		}
 
-		public virtual ExtractorResult Extract(BinaryReader stream, string extract_directory, BackgroundWorker bg_worker = null)
+		protected bool IsCancelled
+		{
+			get => bg_worker != null && bg_worker.CancellationPending;
+		}
+
+		protected bool IsStopScanning
+		{
+			get => bg_worker != null && bg_worker.IsStopPartOfTask;
+		}
+
+		public Extractor()
+		{
+
+		}
+
+		public Extractor(BackgroundWorkerCustom bgw)
+		{
+			BGWorker = bgw;
+		}
+
+		protected void ReportInit()
+		{
+			bg_worker?.ReportProgress(0, new BGWorkerInitProgress() { ExtractorName = Name });
+		}
+
+		protected void ReportProgress(int progress, string text = "")
+		{
+			bg_worker?.ReportProgress(progress, new BGWorkerProgress() { Text = text });
+		}
+
+		public virtual ExtractorResult Extract(BinaryReader stream, string extract_directory)
 		{
 			return new ExtractorResult();
 		}

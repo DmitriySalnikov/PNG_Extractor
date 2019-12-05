@@ -35,7 +35,7 @@
 			this.b_select = new System.Windows.Forms.Button();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.bg_worker = new System.ComponentModel.BackgroundWorker();
+			this.bg_worker = new BackgroundWorkerCustom();
 			this.SuspendLayout();
 			// 
 			// b_reap
@@ -63,7 +63,6 @@
 			// 
 			// toolTip1
 			// 
-			this.toolTip1.ToolTipTitle = "Размер блока считываемых данных. Может повлиять на производительность.";
 			// 
 			// bg_worker
 			// 
@@ -96,7 +95,7 @@
 		private System.Windows.Forms.Button b_select;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
 		private System.Windows.Forms.ToolTip toolTip1;
-		private System.ComponentModel.BackgroundWorker bg_worker;
+		private BackgroundWorkerCustom bg_worker;
 	}
 }
 
