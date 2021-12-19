@@ -48,7 +48,10 @@ namespace PNG_Extractor
             if (e.UserState is BGWorkerProgress bgProgData)
             {
                 if ((DateTime.Now - prevChangeTime).TotalSeconds > 0.25)
+                {
+                    prevChangeTime = DateTime.Now;
                     l_add_info.Text = bgProgData.Text;
+                }
             }
         }
 

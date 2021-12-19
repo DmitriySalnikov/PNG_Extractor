@@ -80,7 +80,6 @@
 			this.MaximizeBox = false;
 			this.Name = "PNG_Extractor";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PNG_Extractor_FormClosing);
-			this.Load += new System.EventHandler(this.PNG_Reaper_Load);
 			this.Shown += new System.EventHandler(this.PNG_Extractor_Shown);
 			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.PNG_Extractor_DragDrop);
 			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.PNG_Extractor_DragEnter);
