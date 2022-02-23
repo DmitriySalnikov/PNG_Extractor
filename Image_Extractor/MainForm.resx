@@ -229,7 +229,7 @@
     <value>466, 155</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>PNG Extractor</value>
+    <value>Image Extractor</value>
   </data>
   <data name="&gt;&gt;openFileDialog1.Name" xml:space="preserve">
     <value>openFileDialog1</value>
@@ -247,10 +247,10 @@
     <value>bg_worker</value>
   </data>
   <data name="&gt;&gt;bg_worker.Type" xml:space="preserve">
-    <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Image_Extractor.BackgroundWorkerCustom, Image_Extractor, Version=1.3.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>PNG_Extractor</value>
+    <value>Image_Extractor</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

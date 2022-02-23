@@ -1,9 +1,9 @@
-﻿using PNG_Extractor.Extrators;
+﻿using Image_Extractor.Extrators;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace PNG_Extractor
+namespace Image_Extractor
 {
     public partial class ExtractProgressForm : Form
     {

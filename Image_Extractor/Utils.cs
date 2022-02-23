@@ -1,4 +1,4 @@
-﻿namespace PNG_Extractor
+﻿namespace Image_Extractor
 {
     public static class Utils
     {

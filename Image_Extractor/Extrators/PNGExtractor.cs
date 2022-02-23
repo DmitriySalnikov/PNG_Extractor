@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
-namespace PNG_Extractor.Extrators
+namespace Image_Extractor.Extrators
 {
     public class PNGExtractor : Extractor
     {
@@ -38,7 +39,7 @@ namespace PNG_Extractor.Extrators
                 if (IsCancelled) { return res; }
                 if (IsStopScanning)
                 {
-                    if (Files[Files.Count - 1].Size == 0)
+                    if (Files.Count > 0 && Files[Files.Count - 1].Size == 0)
                         Files.RemoveAt(Files.Count - 1);
                     break;
                 }
@@ -46,7 +47,7 @@ namespace PNG_Extractor.Extrators
 
                 long to_end = stream.BaseStream.Length - stream.BaseStream.Position;
                 long old_pos = stream.BaseStream.Position;
-                int size = to_end < PNG_Extractor.BufferSize ? (int)to_end : (PNG_Extractor.BufferSize > stream.BaseStream.Length) ? (int)stream.BaseStream.Length : PNG_Extractor.BufferSize;
+                int size = to_end < Image_Extractor_Main_Form.BufferSize ? (int)to_end : (Image_Extractor_Main_Form.BufferSize > stream.BaseStream.Length) ? (int)stream.BaseStream.Length : Image_Extractor_Main_Form.BufferSize;
 
                 byte[] arr = stream.ReadBytes(size);
                 int offset_start = 0;
@@ -66,27 +67,13 @@ namespace PNG_Extractor.Extrators
                             offset_start += 1; //PREVENTING INFINITE LOOP
 
                             long new_pos = old_pos + pos;
-                            bool contains = false;
-                            foreach (var f in Files)
-                            {
-                                if (f.StartPos == new_pos)
-                                {
-                                    contains = true;
-                                    break;
-                                }
-                            }
-
-                            if (!contains)
+                            if (!Files.Any((ef) => ef.StartPos == new_pos))
                             {
                                 if (Files.Count > 0)
                                     prev_png_start = Files[Files.Count - 1].StartPos;
 
-                                Files.Add(new ExtractorFile() { StartPos = new_pos, Stream = stream });
+                                Files.Add(new ExtractorFile() { StartPos = new_pos, Stream = stream, Extension = ".png" });
                                 is_found_start_of_png = true;
-                            }
-                            else
-                            {
-
                             }
                         }
                     }
@@ -124,27 +111,9 @@ namespace PNG_Extractor.Extrators
                 }
             }
 
-            if (Files.Count > 0)
-                Directory.CreateDirectory(extract_directory);
-
-            int i = 0;
-            int j = 0;
-            foreach (var f in Files)
-            {
-                if (IsCancelled) { return res; }
-                ReportProgress((int)(100 * j / Files.Count), $"Current file: {j}, Saved files: {i}, Total files: {Files.Count}");
-
-                if (f.Save(Path.Combine(extract_directory, $"{i}.png")) == SaveExtractedFileError.OK)
-                {
-                    i++;
-                }
-                j++;
-            }
-
-            res.IsSuccess = i > 0;
+            res.IsSuccess = true;
             res.IsCancelledOrError = IsCancelled;
-            res.ExportedCount = i;
-            res.FoundCount = Files.Count;
+            res.Files = Files;
             res.ExtractorName = Name;
             return res;
         }

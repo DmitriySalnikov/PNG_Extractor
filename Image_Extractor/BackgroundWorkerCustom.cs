@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace PNG_Extractor
+namespace Image_Extractor
 {
     public class BackgroundWorkerCustom : BackgroundWorker
     {

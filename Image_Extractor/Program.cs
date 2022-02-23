@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace PNG_Extractor
+namespace Image_Extractor
 {
     static class Program
     {
@@ -14,12 +14,12 @@ namespace PNG_Extractor
             var args = Environment.GetCommandLineArgs();
             if (args.Length > 1)
             {
-                var ext = new PNG_Extractor();
+                var ext = new Image_Extractor_Main_Form();
                 ext.StartExtract(args[1]);
                 return;
             }
 
-            Application.Run(new PNG_Extractor());
+            Application.Run(new Image_Extractor_Main_Form());
         }
     }
 }

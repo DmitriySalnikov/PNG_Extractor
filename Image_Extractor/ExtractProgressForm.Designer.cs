@@ -1,4 +1,4 @@
-﻿namespace PNG_Extractor
+﻿namespace Image_Extractor
 {
 	partial class ExtractProgressForm
 	{

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace PNG_Extractor.Extrators
+namespace Image_Extractor.Extrators
 {
     public struct BGWorkerInitProgress
     {
@@ -25,14 +25,14 @@ namespace PNG_Extractor.Extrators
         public string ExtractorName;
         public bool IsSuccess;
         public bool IsCancelledOrError;
-        public int ExportedCount;
-        public int FoundCount;
+        public List<ExtractorFile> Files;
     }
 
     public class ExtractorFile
     {
         public long StartPos;
         public long Size;
+        public string Extension;
         public BinaryReader Stream;
 
         public virtual SaveExtractedFileError Save(string name)
@@ -40,9 +40,15 @@ namespace PNG_Extractor.Extrators
             Stream.BaseStream.Seek(StartPos, SeekOrigin.Begin);
             long size = Size;
 
-            string new_file_name = name;
-            if (File.Exists(new_file_name))
-                File.Delete(new_file_name);
+            if (File.Exists(name))
+                try
+                {
+                    File.Delete(name);
+                }
+                catch
+                {
+                    return SaveExtractedFileError.CantOpenToWrite;
+                }
 
             BinaryWriter writer;
             if (size > 0)
@@ -63,10 +69,10 @@ namespace PNG_Extractor.Extrators
 
             while (size > 0)
             {
-                if (size > PNG_Extractor.BufferSize)
+                if (size > Image_Extractor_Main_Form.BufferSize)
                 {
-                    size -= PNG_Extractor.BufferSize;
-                    writer.Write(Stream.ReadBytes(PNG_Extractor.BufferSize));
+                    size -= Image_Extractor_Main_Form.BufferSize;
+                    writer.Write(Stream.ReadBytes(Image_Extractor_Main_Form.BufferSize));
                 }
                 else
                 {

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8B189DEB-3CD1-4FAA-905B-ED3E196FB801}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>PNG_Extractor</RootNamespace>
-    <AssemblyName>PNG_Extractor</AssemblyName>
+    <RootNamespace>Image_Extractor</RootNamespace>
+    <AssemblyName>Image_Extractor</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -59,6 +59,7 @@
       <DependentUpon>ExtractProgressForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Extrators\Extractor.cs" />
+    <Compile Include="Extrators\WEBPExtractor.cs" />
     <Compile Include="Extrators\PNGExtractor.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
