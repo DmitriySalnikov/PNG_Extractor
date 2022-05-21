@@ -1,5 +1,5 @@
 # Image Extractor
-Extracts png files from uncompressed archives.
+Extracts png and webp files from uncompressed archives.
 
 # How-to
 1. Open program
